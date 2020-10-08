@@ -103,16 +103,16 @@ export default class BaiTapChonMatKinh extends Component {
     });
   };
 
-  glassesList = () => sanPham.map(glass => (
+  glassesList = () => sanPham.map(glasses => (
     <div className="col-3">
       <button
         className="btn btn-outline-secondary"
         onClick={() =>
-          this.handleChangeClass(glass)
+          this.handleChangeClass(glasses)
         }
       >
         <img
-          src={glass.url}
+          src={glasses.url}
           alt="hinh"
           style={{ width: 100, borderRadius: 20 }}
         />
