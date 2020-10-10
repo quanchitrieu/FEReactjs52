@@ -10,7 +10,9 @@ export default class SanPham extends Component {
           <button className="btn btn-success"
             onClick={() => { this.props.handleDetail(this.props.sanPham); }}
           >Chi tiết</button>
-          <button className="btn btn-danger">Thêm giỏ hàng</button>
+          <button className="btn btn-danger"
+            onClick={() => { this.props.handleAddSanPham(this.props.sanPham); }}
+          >Thêm giỏ hàng</button>
         </div>
       </div>
     );

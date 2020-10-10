@@ -3,8 +3,8 @@
  * 1. dàn layout ( html css ) - done
  * 2. xác định data thay đổi và lưu vào state - done
  * 3. lấy data trong state đi binding ra jsx - done
- * 4. render mãng dử liệu
- * 5. xây dựng chức năng xem chi tiết
+ * 4. render mãng dử liệu - done
+ * 5. xây dựng chức năng xem chi tiết - done
  * 6. xây dựng chức năng thêm giỏ hàng
  * 7. xây dựng chức năng xóa sp khoải giỏ hàng
  * 8. xây dựng chức năng tăng giảm số lượng
@@ -13,6 +13,7 @@
 
 import React, { Component } from "react";
 import SanPham from "./SanPham";
+import Modal from "./Modal";
 
 export default class BaiTapGioHang extends Component {
   danhSachSanPham = [
@@ -26,6 +27,7 @@ export default class BaiTapGioHang extends Component {
       cameraSau: "Chính 48 MP & Phụ 8 MP, 5 MP",
       ram: "4 GB",
       rom: "6 GB",
+      giaTien: "5700000",
     },
     {
       maSanPham: "2",
@@ -37,6 +39,7 @@ export default class BaiTapGioHang extends Component {
       cameraSau: "Chính 48 MP & Phụ 8 MP, 5 MP",
       ram: "8 GB",
       rom: "16 GB",
+      giaTien: "	7600000",
     },
     {
       maSanPham: "3",
@@ -48,6 +51,7 @@ export default class BaiTapGioHang extends Component {
       cameraSau: "Chính 48 MP & Phụ 8 MP, 5 MP",
       ram: "64 GB",
       rom: "86 GB",
+      giaTien: "13500000",
     },
   ];
 
@@ -63,7 +67,50 @@ export default class BaiTapGioHang extends Component {
       ram: "4 GB",
       rom: "6 GB",
     },
+    danhSachGioHang: [],
   };
+
+
+  handleDelete = (cart) => {
+    let danhSachGioHang = this.state.danhSachGioHang;
+    danhSachGioHang = danhSachGioHang.filter((item) => {
+      return cart.maSanPham !== item.maSanPham
+    });
+    this.setState({ danhSachGioHang });
+  };
+
+  handleAddSanPham = (sanPham) => {
+    console.log("sanPham:", sanPham);
+    let danhSachGioHang = [...this.state.danhSachGioHang];
+    /**
+     * findIndex tìm xem có tồn tại trong mãng hay không :
+     * nếu có tồn tại trả về index 
+     * nếu ko tồn tại trả về -1
+     */
+
+    const index = danhSachGioHang.findIndex((cart) => {
+      return cart.maSanPham === sanPham.maSanPham;
+    });
+    if (index !== -1) {
+      // tìm thấy
+      // cập nhật số lượng
+      danhSachGioHang[index].soLuong += 1;
+    } else {
+      //  không tìm thấy
+      //  set số lượng = 1 , push vào mảng
+      sanPham.soLuong = 1;
+      // danhSachGioHang.push(sanPham);
+      danhSachGioHang = [...danhSachGioHang, sanPham];
+    }
+
+
+
+    this.setState({
+      danhSachGioHang: danhSachGioHang,
+    });
+
+  };
+
   handleDetail = (sanPham) => {
     console.log("run handleDetail");
     this.setState({
@@ -74,8 +121,8 @@ export default class BaiTapGioHang extends Component {
   renderDanhSachSanPham = () => {
     return this.danhSachSanPham.map((sanPham, index) => {
       return (
-        <div className="col-sm-4">
-          <SanPham handleDetail={this.handleDetail} sanPham={sanPham} />
+        <div className="col-sm-4" key={index} >
+          <SanPham handleAddSanPham={this.handleAddSanPham} handleDetail={this.handleDetail} sanPham={sanPham} />
         </div>
       );
     });
@@ -99,77 +146,7 @@ export default class BaiTapGioHang extends Component {
             <div className="container">
               <div className="row">{this.renderDanhSachSanPham()}</div>
             </div>
-            <div
-              className="modal fade"
-              id="modelId"
-              tabIndex={-1}
-              aria-labelledby="modelTitleId"
-              aria-hidden="true"
-              style={{ display: "none" }}
-            >
-              <div
-                className="modal-dialog"
-                role="document"
-                style={{ maxWidth: 1000 }}
-              >
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <h5 className="modal-title">Giỏ hàng</h5>
-                    <button
-                      type="button"
-                      className="close"
-                      data-dismiss="modal"
-                      aria-label="Close"
-                    >
-                      <span aria-hidden="true">×</span>
-                    </button>
-                  </div>
-                  <div className="modal-body">
-                    <table className="table">
-                      <thead>
-                        <tr>
-                          <th>Mã sản phẩm</th>
-                          <th>tên sản phẩm</th>
-                          <th>hình ảnh</th>
-                          <th>số lượng</th>
-                          <th>đơn giá</th>
-                          <th>thành tiền</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>1</td>
-                          <td>Iphone XS Max</td>
-                          <td>
-                            <img src="./img/applephone.jpg" width={50} alt="hinh" />
-                          </td>
-                          <td>
-                            <button>-</button>5<button>+</button>
-                          </td>
-                          <td>27000000</td>
-                          <td>135000000</td>
-                          <td>
-                            <button className="btn btn-danger">Delete</button>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <div className="modal-footer">
-                    <button
-                      type="button"
-                      className="btn btn-secondary"
-                      data-dismiss="modal"
-                    >
-                      Close
-                    </button>
-                    <button type="button" className="btn btn-primary">
-                      Save
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <Modal handleDelete={this.handleDelete} danhSachGioHang={this.state.danhSachGioHang} />
             <div className="row">
               <div className="col-sm-5">
                 <img
