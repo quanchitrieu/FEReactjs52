@@ -1,6 +1,6 @@
 import React from "react";
-// import BaiTapGioHang from "./BaiTapGioHang/BaiTapGioHang";
-import BaiTapChonMatKinh from "./BaiTapChonMatKinh/index";
+import BaiTapGioHang from "./BaiTapGioHang/BaiTapGioHang";
+// import BaiTapChonMatKinh from "./BaiTapChonMatKinh/index";
 // import DemoConditionalAndState from "./DemoLogin/DemoConditionalAndState";
 // import BaiTapChonMauXe from "./BaiTapChonMauXe";
 // import DemoCourse from "./ListAndKeys/DemoCourse";
@@ -26,8 +26,8 @@ function App() {
       {/* <BaiTapChonMauXe /> */}
       {/* <DemoCourse /> */}
       {/* <DemoProps /> */}
-      {/* <BaiTapGioHang /> */}
-      <BaiTapChonMatKinh />
+      <BaiTapGioHang />
+      {/* <BaiTapChonMatKinh /> */}
     </div>
   );
 }

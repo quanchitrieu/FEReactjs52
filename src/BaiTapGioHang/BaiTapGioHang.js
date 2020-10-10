@@ -64,12 +64,18 @@ export default class BaiTapGioHang extends Component {
       rom: "6 GB",
     },
   };
+  handleDetail = (sanPham) => {
+    console.log("run handleDetail");
+    this.setState({
+      sanPhamChiTiet: sanPham,
+    })
+  };
 
   renderDanhSachSanPham = () => {
     return this.danhSachSanPham.map((sanPham, index) => {
       return (
         <div className="col-sm-4">
-          <SanPham sanPham={sanPham} />
+          <SanPham handleDetail={this.handleDetail} sanPham={sanPham} />
         </div>
       );
     });
@@ -135,7 +141,7 @@ export default class BaiTapGioHang extends Component {
                           <td>1</td>
                           <td>Iphone XS Max</td>
                           <td>
-                            <img src="./img/applephone.jpg" width={50} alt />
+                            <img src="./img/applephone.jpg" width={50} alt="hinh" />
                           </td>
                           <td>
                             <button>-</button>5<button>+</button>
@@ -169,7 +175,7 @@ export default class BaiTapGioHang extends Component {
                 <img
                   className="img-fluid"
                   src={this.state.sanPhamChiTiet.hinhAnh}
-                  alt
+                  alt="hinh"
                 />
               </div>
               <div className="col-sm-7">
