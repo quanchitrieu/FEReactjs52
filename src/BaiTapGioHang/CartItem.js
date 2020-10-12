@@ -10,8 +10,8 @@ export default class CartItem extends Component {
                     <img src={this.props.cart.hinhAnh} width={50} alt="hinh" />
                 </td>
                 <td>
-                    <button>-</button> {this.props.cart.soLuong}
-                    <button>+</button>
+                    <button onClick={() => { this.props.handleTangGiam(this.props.cart, false) }} >-</button> {this.props.cart.soLuong}
+                    <button onClick={() => { this.props.handleTangGiam(this.props.cart, true) }} >+</button>
                 </td>
                 <td> {this.props.cart.giaTien} </td>
                 <td> {this.props.cart.giaTien * this.props.cart.soLuong} </td>

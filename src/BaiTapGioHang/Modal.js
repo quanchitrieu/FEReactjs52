@@ -5,7 +5,9 @@ export default class Modal extends Component {
 
     renderCartList = () => {
         return this.props.danhSachGioHang.map((cart, index) => {
-            return <CartItem handleDelete={this.props.handleDelete} cart={cart} key={index} />;
+            return <CartItem
+                handleTangGiam={this.props.handleTangGiam}
+                handleDelete={this.props.handleDelete} cart={cart} key={index} />;
         })
     }
 
